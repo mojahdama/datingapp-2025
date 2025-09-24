@@ -4,9 +4,7 @@ using API.Interfaces;
 using API.Middleware;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,8 +19,11 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 
 builder.Services.AddCors();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options => {
+.AddJwtBearer(options =>
+{
     var tokenKey = builder.Configuration["TokenKey"]
         ?? throw new Exception("Token key not found - program.cs");
     options.TokenValidationParameters = new TokenValidationParameters
@@ -41,11 +42,27 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 //app.UseDeveloperExceptionPage();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()
-.WithOrigins("http://localhost:4200","https://localhost:4200"));
+.WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 app.UseAuthentication(); //التعرف ع الهويه 
 app.UseAuthorization(); // التعرف ع الصلاحيات 
 
 app.MapControllers();
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+
+try
+{
+    var contex = services.GetRequiredService<AppDbContext>();
+    await contex.Database.MigrateAsync();
+    await Seed.SeedUsers(contex);
+}
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occured during migration");
+
+}
 
 app.Run();

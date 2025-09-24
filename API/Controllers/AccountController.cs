@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace API.Controllers;
 
-public class AccountController(AppDbContext context , ITokenService tokenService) : BaseApiController
+public class AccountController(AppDbContext context, ITokenService tokenService) : BaseApiController
 {
 
     [HttpPost("register")]
@@ -53,4 +53,5 @@ public class AccountController(AppDbContext context , ITokenService tokenService
     {
         return await context.Users.AnyAsync(x => x.Email.ToLower() == email.ToLower());
     }
+    
 }
