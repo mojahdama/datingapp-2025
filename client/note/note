@@ -1,0 +1,6 @@
+route resolve >> memberresolve
+signal 
+async
+AsyncPipe
+DatePipe >> creating a custom  pipe ng g p 
+[routerLinkActiveOptions]="{exact : true}"
