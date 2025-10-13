@@ -4,3 +4,10 @@ async
 AsyncPipe
 DatePipe >> creating a custom  pipe ng g p 
 [routerLinkActiveOptions]="{exact : true}"
+deactivate route guard
+loading indicators
+OnDestroy
+HostListener
+claims
+ درس 118 بعمل سبينر عن طريق ال interseptor 
+ 
