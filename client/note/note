@@ -1,3 +1,4 @@
+search of (///this)
 route resolve >> memberresolve
 signal 
 async
@@ -10,4 +11,7 @@ OnDestroy
 HostListener
 claims
  درس 118 بعمل سبينر عن طريق ال interseptor 
- 
+ FormsModule
+ ReactiveFormsModule
+class TextInput implements ControlValueAccessor  (what is ControlValueAccessor) 
+FormBuilder >> in register

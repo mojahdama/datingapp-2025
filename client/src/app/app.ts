@@ -11,6 +11,5 @@ import { Router, RouterOutlet } from '@angular/router';
 export class App {
 
   protected router = inject(Router);
-
-
+ 
 }
