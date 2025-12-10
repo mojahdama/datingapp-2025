@@ -15,3 +15,9 @@ claims
  ReactiveFormsModule
 class TextInput implements ControlValueAccessor  (what is ControlValueAccessor) 
 FormBuilder >> in register
+.Skip(5)
+.Take(4)
+LogUserActiivity : IAsyncActionFilter
+167. Persisting the filters (in cource 167 مهمه)
+iqueryable
+
