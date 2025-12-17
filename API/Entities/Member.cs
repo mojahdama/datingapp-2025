@@ -29,6 +29,11 @@ public class Member
     public List<MemberLike> LikedMember { get; set; } = [];
     
     [JsonIgnore]
+    public List<Message> MessagesSent { get; set; } = [];
+    [JsonIgnore]
+    public List<Message> MessagesReceived { get; set; } =[];
+    
+    [JsonIgnore]
     [ForeignKey(nameof(Id))]
     public AppUser User { get; set; } = null!;
 
